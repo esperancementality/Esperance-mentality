@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esperance Mentality Store</title>
+    <style>
+        :root { --taraji-red: #d32f2f; --taraji-yellow: #fbc02d; --dark: #0a0a0a; }
+        body { margin: 0; background-color: var(--dark); color: white; font-family: sans-serif; overflow-x: hidden; direction: rtl; }
+        
+        .virage-wrapper { display: flex; min-height: 100vh; }
+        
+        /* الشريط الجانبي المتحرك */
+        .side-banner { width: 45px; background: black; color: var(--taraji-yellow); border-left: 3px solid var(--taraji-red); writing-mode: vertical-rl; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; overflow: hidden; position: relative; }
+        .mentality-text { animation: scroll 15s linear infinite; white-space: nowrap; }
+        @keyframes scroll { 0% { transform: translateY(100%); } 100% { transform: translateY(-100%); } }
+        
+        .container { flex: 1; padding: 20px; max-width: 800px; margin: 0 auto; padding-bottom: 100px; }
+        .main-header { text-align: center; margin-bottom: 30px; }
+        .channel-logo { width: 100px; height: 100px; border-radius: 50%; border: 2px solid var(--taraji-yellow); box-shadow: 0 0 20px var(--taraji-red); }
+        .ultras-text { color: var(--taraji-red); font-style: italic; }
+        
+        /* المنتجات */
+        .products { display: flex; flex-direction: column; gap: 25px; }
+        .ultras-card { background: #151515; border: 1px solid #333; padding: 20px; text-align: center; border-radius: 10px; position: relative; }
+        
+        .pack-grid, .pack-grid-2 { display: grid; gap: 10px; margin-bottom: 15px; }
+        .pack-grid { grid-template-columns: 1fr 1fr; }
+        .pack-grid-2 { grid-template-columns: 1fr 1fr; }
+        img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 5px; background: #222; }
+        
+        .stamp { position: absolute; top: 10px; left: -5px; background: var(--taraji-red); color: white; padding: 5px 12px; transform: rotate(-15deg); font-weight: bold; font-size: 12px; z-index: 10; }
+        h3 { font-size: 19px; margin: 15px 0; color: var(--taraji-yellow); }
+        
+        .buy-btn { background: linear-gradient(45deg, var(--taraji-red), #900); color: white; border: none; padding: 15px; width: 100%; font-weight: bold; border-radius: 5px; cursor: pointer; font-size: 16px; margin-top: 10px; }
+
+        /* زر الصوت الثابت (دائما ظاهر) */
+        .audio-fixed-control {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 999;
+        }
+        .music-btn { 
+            background: rgba(0, 0, 0, 0.8); 
+            color: var(--taraji-yellow); 
+            border: 2px solid var(--taraji-red); 
+            padding: 12px 18px; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            font-weight: bold;
+            box-shadow: 0 0 15px rgba(211, 47, 47, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="ultras-bg-music" loop>
+        <source src="https://dl.dropboxusercontent.com/scl/fi/vjq8frm1ha1s2we3yz7wf/_-Album-La-Guerra-Contra-EL-Olvido-MP3_160K.mp3?rlkey=wo0cfet4e16tj2tjzcu77rpky&dl=1" type="audio/mpeg">
+    </audio>
+
+    <div class="audio-fixed-control">
+        <button id="music-toggle" class="music-btn">🔈 تشغيل الأجواء</button>
+    </div>
+
+    <div class="virage-wrapper">
+        <aside class="side-banner">
+            <div class="mentality-text">
+                ESPERANCE MENTALITY 46846361 • ESPERANCE MENTALITY 46846361 • ESPERANCE MENTALITY 46846361 • ESPERANCE MENTALITY 46846361 • ESPERANCE MENTALITY 46846361 • ESPERANCE MENTALITY 46846361
+            </div>
+        </aside>
+
+        <div class="container">
+            <header class="main-header">
+                <img src="https://dl.dropboxusercontent.com/scl/fi/qyouai0b4vw6h3s51thnr/Picsart_26-04-22_13-31-21-942.png?rlkey=m621sbwv91jrrz237guvii7yx&dl=1" class="channel-logo">
+                <h1>ESPERANCE <span class="ultras-text">MENTALITY</span></h1>
+                <p>المتجر الرسمي لملصقات "المكشخة"</p>
+            </header>
+
+            <section class="products">
+                <div class="card ultras-card">
+                    <div class="stamp">Top Pack</div>
+                    <div class="pack-grid">
+                        <img src="https://dl.dropboxusercontent.com/scl/fi/1k7hyf4cpnb2zaro46hc6/IMG-20260424-WA0031.jpg?rlkey=ggyg7c75kvci73i2haegpg29b&dl=1">
+                        <img src="https://dl.dropboxusercontent.com/scl/fi/oxyiqnup0uc54dc8si3xy/IMG-20260424-WA0029.jpg?rlkey=c6sdi2h63xfe0p8ro55512nrv&dl=1">
+                        <img src="https://dl.dropboxusercontent.com/scl/fi/3gz5gwp1wnkbldhfkn8ct/IMG-20260424-WA0030.jpg?rlkey=o27mdblqlpzxiesp4ewi78ju2&dl=1">
+                        <img src="https://dl.dropboxusercontent.com/scl/fi/qmnf316tsnqc198bcnoo5/IMG-20260424-WA0032.jpg?rlkey=wqi0evdjy7xwwr145wbz6fxuk&dl=1">
+                    </div>
+                    <h3>Pack Taraji 19</h3>
+                    <button class="buy-btn">اطلب عبر واتساب</button>
+                </div>
+
+                <div class="card ultras-card">
+                    <div class="stamp">New Pack</div>
+                    <div class="pack-grid-2">
+                        <img src="https://dl.dropboxusercontent.com/scl/fi/gad8ym99w4cx506bj0wwb/IMG-20260424-WA0034.jpg?rlkey=6y4wy9wafz4tx49uojjhoktkb&dl=1">
+                        <img src="https://dl.dropboxusercontent.com/scl/fi/lgf5n1t4b7dp75phj1i54/IMG-20260424-WA0033.jpg?rlkey=44tyofkl7ys830idc81knortp&dl=1">
+                    </div>
+                    <h3>Pack Ultras l'emkachkhines 02</h3>
+                    <button class="buy-btn">اطلب عبر واتساب</button>
+                </div>
+
+                <div class="card ultras-card">
+                    <div class="stamp">New Pack</div>
+                    <div class="pack-grid-2">
+                        <img src="https://dl.dropboxusercontent.com/scl/fi/23xv2fg4tl3c0g7lufwsj/IMG-20260424-WA0037.jpg?rlkey=q8z6jy2h5rvhnh5fz6if5kell&dl=1">
+                        <img src="https://dl.dropboxusercontent.com/scl/fi/f6iwzbk88m14i9jewkqe3/IMG-20260424-WA0038.jpg?rlkey=apjbuva8dr0llnae7d6zbt9k0&dl=1">
+                    </div>
+                    <h3>Pack Zapatista Esperanza 07</h3>
+                    <button class="buy-btn">اطلب عبر واتساب</button>
+                </div>
+
+                <div class="card ultras-card">
+                    <div class="stamp">New Pack</div>
+                    <div class="pack-grid-2">
+                        <img src="https://dl.dropboxusercontent.com/scl/fi/w1t2tgs0z5xj43q18a14p/IMG-20260424-WA0035.jpg?rlkey=5vrajm95ykkr4p3xw0ze3z12l&dl=1">
+                        <img src="https://dl.dropboxusercontent.com/scl/fi/t6ro34odrfs1f0r22dz23/IMG-20260424-WA0036.jpg?rlkey=72fg8kmeepq1bmt7cf4jauy0b&dl=1">
+                    </div>
+                    <h3>Pack Fedayn esperantiste 09</h3>
+                    <button class="buy-btn">اطلب عبر واتساب</button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        const MY_NUMBER = "21646846361";
+        const audio = document.getElementById('ultras-bg-music');
+        const btn = document.getElementById('music-toggle');
+
+        // محاولة التشغيل عند أول ضغطة في أي مكان في الصفحة
+        document.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play().catch(() => {});
+                btn.innerText = "🔊 الأجواء مشعلة";
+            }
+        }, { once: true });
+
+        // التحكم عبر الزر الثابت
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation(); // منع تداخل الأحداث
+            if (audio.paused) {
+                audio.play();
+                btn.innerText = "🔊 الأجواء مشعلة";
+            } else {
+                audio.pause();
+                btn.innerText = "🔈 تشغيل الأجواء";
+            }
+        });
+
+        // طلب الواتساب
+        document.querySelectorAll('.buy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const name = button.parentElement.querySelector('h3').innerText;
+                window.open("https://wa.me/" + MY_NUMBER + "?text=" + encodeURIComponent("سلام، أريد طلب: " + name), '_blank');
+            });
+        });
+    </script>
+</body>
+</html>
