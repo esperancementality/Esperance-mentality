@@ -27,36 +27,42 @@
         .pack-grid, .pack-grid-2 { display: grid; gap: 10px; margin-bottom: 15px; }
         .pack-grid { grid-template-columns: 1fr 1fr; }
         .pack-grid-2 { grid-template-columns: 1fr 1fr; }
-        img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 5px; background: #222; }
+        
+        /* الصور قابلة للضغط */
+        .ultras-card img { 
+            width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 5px; 
+            background: #222; cursor: zoom-in; transition: transform 0.3s ease; 
+        }
+        .ultras-card img:hover { transform: scale(1.02); }
         
         .stamp { position: absolute; top: 10px; left: -5px; background: var(--taraji-red); color: white; padding: 5px 12px; transform: rotate(-15deg); font-weight: bold; font-size: 12px; z-index: 10; }
         h3 { font-size: 19px; margin: 15px 0; color: var(--taraji-yellow); }
         
         .buy-btn { background: linear-gradient(45deg, var(--taraji-red), #900); color: white; border: none; padding: 15px; width: 100%; font-weight: bold; border-radius: 5px; cursor: pointer; font-size: 16px; margin-top: 10px; }
 
-        /* زر الصوت الثابت (دائما ظاهر) */
-        .audio-fixed-control {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            z-index: 999;
+        /* نافذة المعاينة (Full Image View) */
+        #image-viewer {
+            display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%;
+            overflow: auto; background-color: rgba(0,0,0,0.95); align-items: center; justify-content: center;
         }
+        #full-image { max-width: 90%; max-height: 90%; border: 2px solid var(--taraji-yellow); border-radius: 10px; }
+        #image-viewer .close { position: absolute; top: 20px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer; }
+
+        /* زر الصوت الثابت */
+        .audio-fixed-control { position: fixed; bottom: 20px; left: 20px; z-index: 999; }
         .music-btn { 
-            background: rgba(0, 0, 0, 0.8); 
-            color: var(--taraji-yellow); 
-            border: 2px solid var(--taraji-red); 
-            padding: 12px 18px; 
-            border-radius: 50px; 
-            cursor: pointer; 
-            font-weight: bold;
-            box-shadow: 0 0 15px rgba(211, 47, 47, 0.4);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            background: rgba(0, 0, 0, 0.8); color: var(--taraji-yellow); border: 2px solid var(--taraji-red); 
+            padding: 12px 18px; border-radius: 50px; cursor: pointer; font-weight: bold;
+            box-shadow: 0 0 15px rgba(211, 47, 47, 0.4); display: flex; align-items: center; gap: 8px;
         }
     </style>
 </head>
 <body>
+
+    <div id="image-viewer">
+        <span class="close">&times;</span>
+        <img id="full-image" src="">
+    </div>
 
     <audio id="ultras-bg-music" loop>
         <source src="https://dl.dropboxusercontent.com/scl/fi/vjq8frm1ha1s2we3yz7wf/_-Album-La-Guerra-Contra-EL-Olvido-MP3_160K.mp3?rlkey=wo0cfet4e16tj2tjzcu77rpky&dl=1" type="audio/mpeg">
@@ -131,7 +137,23 @@
         const audio = document.getElementById('ultras-bg-music');
         const btn = document.getElementById('music-toggle');
 
-        // محاولة التشغيل عند أول ضغطة في أي مكان في الصفحة
+        // ميزة تكبير الصور
+        const viewer = document.getElementById('image-viewer');
+        const fullImg = document.getElementById('full-image');
+        const closeBtn = document.querySelector('#image-viewer .close');
+
+        document.querySelectorAll('.ultras-card img').forEach(img => {
+            img.addEventListener('click', () => {
+                viewer.style.display = 'flex';
+                fullImg.src = img.src;
+            });
+        });
+
+        viewer.addEventListener('click', () => {
+            viewer.style.display = 'none';
+        });
+
+        // تشغيل الموسيقى
         document.addEventListener('click', () => {
             if (audio.paused) {
                 audio.play().catch(() => {});
@@ -139,19 +161,16 @@
             }
         }, { once: true });
 
-        // التحكم عبر الزر الثابت
         btn.addEventListener('click', (e) => {
-            e.stopPropagation(); // منع تداخل الأحداث
+            e.stopPropagation();
             if (audio.paused) {
-                audio.play();
-                btn.innerText = "🔊 الأجواء مشعلة";
+                audio.play(); btn.innerText = "🔊 الأجواء مشعلة";
             } else {
-                audio.pause();
-                btn.innerText = "🔈 تشغيل الأجواء";
+                audio.pause(); btn.innerText = "🔈 تشغيل الأجواء";
             }
         });
 
-        // طلب الواتساب
+        // واتساب
         document.querySelectorAll('.buy-btn').forEach(button => {
             button.addEventListener('click', () => {
                 const name = button.parentElement.querySelector('h3').innerText;
