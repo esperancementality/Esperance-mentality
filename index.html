@@ -35,12 +35,15 @@
         }
         .ultras-card img:hover { transform: scale(1.02); }
         
+        /* تنسيق خاص للباك الفردي (الدربي) */
+        .single-pack-img { max-width: 300px; margin: 0 auto 15px auto; display: block; border: 1px solid var(--taraji-yellow); }
+
         .stamp { position: absolute; top: 10px; left: -5px; background: var(--taraji-red); color: white; padding: 5px 12px; transform: rotate(-15deg); font-weight: bold; font-size: 12px; z-index: 10; }
         h3 { font-size: 19px; margin: 15px 0; color: var(--taraji-yellow); }
         
         .buy-btn { background: linear-gradient(45deg, var(--taraji-red), #900); color: white; border: none; padding: 15px; width: 100%; font-weight: bold; border-radius: 5px; cursor: pointer; font-size: 16px; margin-top: 10px; }
 
-        /* نافذة المعاينة (Full Image View) */
+        /* نافذة المعاينة */
         #image-viewer {
             display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%;
             overflow: auto; background-color: rgba(0,0,0,0.95); align-items: center; justify-content: center;
@@ -87,6 +90,14 @@
             </header>
 
             <section class="products">
+                
+                <div class="card ultras-card">
+                    <div class="stamp">Exclusive</div>
+                    <img src="https://dl.dropboxusercontent.com/scl/fi/q2npavpsrtdyvpe7tkxze/IMG-20260509-WA0001.jpg?rlkey=clvf9e93thk1urhadfp9p5vzn&dl=1" class="single-pack-img">
+                    <h3>Pack spécial derby</h3>
+                    <button class="buy-btn">اطلب عبر واتساب</button>
+                </div>
+
                 <div class="card ultras-card">
                     <div class="stamp">Top Pack</div>
                     <div class="pack-grid">
@@ -128,6 +139,7 @@
                     <h3>Pack Fedayn esperantiste 09</h3>
                     <button class="buy-btn">اطلب عبر واتساب</button>
                 </div>
+
             </section>
         </div>
     </div>
@@ -137,7 +149,6 @@
         const audio = document.getElementById('ultras-bg-music');
         const btn = document.getElementById('music-toggle');
 
-        // ميزة تكبير الصور
         const viewer = document.getElementById('image-viewer');
         const fullImg = document.getElementById('full-image');
         const closeBtn = document.querySelector('#image-viewer .close');
@@ -153,7 +164,6 @@
             viewer.style.display = 'none';
         });
 
-        // تشغيل الموسيقى
         document.addEventListener('click', () => {
             if (audio.paused) {
                 audio.play().catch(() => {});
@@ -170,7 +180,6 @@
             }
         });
 
-        // واتساب
         document.querySelectorAll('.buy-btn').forEach(button => {
             button.addEventListener('click', () => {
                 const name = button.parentElement.querySelector('h3').innerText;
