@@ -5,8 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Esperance Mentality Store</title>
     <style>
-        :root { --taraji-red: #d32f2f; --taraji-yellow: #fbc02d; --dark: #0a0a0a; }
-        body { margin: 0; background-color: var(--dark); color: white; font-family: sans-serif; overflow-x: hidden; direction: rtl; }
+        :root { 
+            --taraji-red: #d32f2f; 
+            --taraji-yellow: #fbc02d; 
+            --dark: #0a0a0a; 
+            --bg-color: #0a0a0a;
+        }
+        body { 
+            margin: 0; 
+            background-color: var(--bg-color); 
+            color: white; 
+            font-family: sans-serif; 
+            overflow-x: hidden; 
+            direction: rtl;
+            transition: background 0.5s ease;
+        }
         
         .virage-wrapper { display: flex; min-height: 100vh; }
         
@@ -22,7 +35,7 @@
         
         /* المنتجات */
         .products { display: flex; flex-direction: column; gap: 25px; }
-        .ultras-card { background: #151515; border: 1px solid #333; padding: 20px; text-align: center; border-radius: 10px; position: relative; }
+        .ultras-card { background: #151515; border: 1px solid #333; padding: 20px; text-align: center; border-radius: 10px; position: relative; transition: all 0.3s ease; }
         
         /* تقسيمات شبكة الصور */
         .pack-grid, .pack-grid-2, .pack-grid-5 { display: grid; gap: 10px; margin-bottom: 15px; }
@@ -51,6 +64,31 @@
         
         .buy-btn { background: linear-gradient(45deg, var(--taraji-red), #900); color: white; border: none; padding: 15px; width: 100%; font-weight: bold; border-radius: 5px; cursor: pointer; font-size: 16px; margin-top: 10px; }
 
+        /* أزرار التحكم الثابتة أسفل الشاشة */
+        .controls-fixed { position: fixed; bottom: 20px; left: 20px; z-index: 999; display: flex; flex-direction: column; gap: 10px; }
+        .music-btn, .pyro-btn { 
+            background: rgba(0, 0, 0, 0.85); color: var(--taraji-yellow); border: 2px solid var(--taraji-red); 
+            padding: 12px 18px; border-radius: 50px; cursor: pointer; font-weight: bold;
+            box-shadow: 0 0 15px rgba(211, 47, 47, 0.4); display: flex; align-items: center; gap: 8px;
+            font-size: 14px; transition: all 0.3s ease;
+        }
+        .pyro-btn { border-color: var(--taraji-yellow); color: #fff; }
+
+        /* تأثير وضع الكركاج المجنون */
+        body.pyro-mode {
+            --bg-color: #2b0404;
+            background-image: radial-gradient(circle, #5a0a0a 0%, #1a0202 100%);
+        }
+        body.pyro-mode .ultras-card {
+            border-color: var(--taraji-red);
+            box-shadow: 0 0 15px rgba(211, 47, 47, 0.6);
+            animation: craquageShake 0.5s infinite alternate;
+        }
+        @keyframes craquageShake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            100% { transform: translate(-1px, -1px) rotate(0.5deg); }
+        }
+
         /* نافذة المعاينة */
         #image-viewer {
             display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%;
@@ -58,14 +96,6 @@
         }
         #full-image { max-width: 90%; max-height: 90%; border: 2px solid var(--taraji-yellow); border-radius: 10px; }
         #image-viewer .close { position: absolute; top: 20px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer; }
-
-        /* زر الصوت الثابت */
-        .audio-fixed-control { position: fixed; bottom: 20px; left: 20px; z-index: 999; }
-        .music-btn { 
-            background: rgba(0, 0, 0, 0.8); color: var(--taraji-yellow); border: 2px solid var(--taraji-red); 
-            padding: 12px 18px; border-radius: 50px; cursor: pointer; font-weight: bold;
-            box-shadow: 0 0 15px rgba(211, 47, 47, 0.4); display: flex; align-items: center; gap: 8px;
-        }
     </style>
 </head>
 <body>
@@ -79,7 +109,8 @@
         <source src="https://dl.dropboxusercontent.com/scl/fi/vjq8frm1ha1s2we3yz7wf/_-Album-La-Guerra-Contra-EL-Olvido-MP3_160K.mp3?rlkey=wo0cfet4e16tj2tjzcu77rpky&dl=1" type="audio/mpeg">
     </audio>
 
-    <div class="audio-fixed-control">
+    <div class="controls-fixed">
+        <button id="pyro-toggle" class="pyro-btn">🔥 كركاج الفيراج</button>
         <button id="music-toggle" class="music-btn">🔈 تشغيل الأجواء</button>
     </div>
 
@@ -169,11 +200,11 @@
         const MY_NUMBER = "21646846361";
         const audio = document.getElementById('ultras-bg-music');
         const btn = document.getElementById('music-toggle');
-
+        const pyroBtn = document.getElementById('pyro-toggle');
         const viewer = document.getElementById('image-viewer');
         const fullImg = document.getElementById('full-image');
 
-        // تحديث وظيفة التكبير لتشمل جميع الصور الديناميكية
+        // ميزة تكبير الصور
         document.addEventListener('click', (e) => {
             if (e.target.tagName === 'IMG' && e.target.closest('.ultras-card')) {
                 viewer.style.display = 'flex';
@@ -185,6 +216,7 @@
             viewer.style.display = 'none';
         });
 
+        // تشغيل الموسيقى تلقائياً عند أول حركة
         document.addEventListener('click', () => {
             if (audio.paused) {
                 audio.play().catch(() => {});
@@ -201,6 +233,20 @@
             }
         });
 
+        // تشغيل وإطفاء وضع الكركاج البصري
+        pyroBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.body.classList.toggle('pyro-mode');
+            if(document.body.classList.contains('pyro-mode')) {
+                pyroBtn.innerText = "🧯 إطفاء الفلام";
+                pyroBtn.style.backgroundColor = "var(--taraji-red)";
+            } else {
+                pyroBtn.innerText = "🔥 كركاج الفيراج";
+                pyroBtn.style.backgroundColor = "rgba(0, 0, 0, 0.85)";
+            }
+        });
+
+        // طلب الواتساب
         document.querySelectorAll('.buy-btn').forEach(button => {
             button.addEventListener('click', () => {
                 const name = button.parentElement.querySelector('h3').innerText;
@@ -209,5 +255,4 @@
         });
     </script>
 </body>
-                            </html>
-                            
+</html>
