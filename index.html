@@ -24,18 +24,26 @@
         .products { display: flex; flex-direction: column; gap: 25px; }
         .ultras-card { background: #151515; border: 1px solid #333; padding: 20px; text-align: center; border-radius: 10px; position: relative; }
         
-        .pack-grid, .pack-grid-2 { display: grid; gap: 10px; margin-bottom: 15px; }
+        /* تقسيمات شبكة الصور */
+        .pack-grid, .pack-grid-2, .pack-grid-5 { display: grid; gap: 10px; margin-bottom: 15px; }
         .pack-grid { grid-template-columns: 1fr 1fr; }
         .pack-grid-2 { grid-template-columns: 1fr 1fr; }
         
-        /* الصور قابلة للضغط */
+        /* تنسيق خاص لباك 5 صور */
+        .pack-grid-5 { grid-template-columns: repeat(6, 1fr); }
+        .pack-grid-5 img:nth-child(1) { grid-column: span 3; }
+        .pack-grid-5 img:nth-child(2) { grid-column: span 3; }
+        .pack-grid-5 img:nth-child(3) { grid-column: span 2; }
+        .pack-grid-5 img:nth-child(4) { grid-column: span 2; }
+        .pack-grid-5 img:nth-child(5) { grid-column: span 2; }
+
+        /* الصور قابلة للضغط والتكبير */
         .ultras-card img { 
             width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 5px; 
             background: #222; cursor: zoom-in; transition: transform 0.3s ease; 
         }
         .ultras-card img:hover { transform: scale(1.02); }
         
-        /* تنسيق خاص للباك الفردي (الدربي) */
         .single-pack-img { max-width: 300px; margin: 0 auto 15px auto; display: block; border: 1px solid var(--taraji-yellow); }
 
         .stamp { position: absolute; top: 10px; left: -5px; background: var(--taraji-red); color: white; padding: 5px 12px; transform: rotate(-15deg); font-weight: bold; font-size: 12px; z-index: 10; }
@@ -91,6 +99,19 @@
 
             <section class="products">
                 
+                <div class="card ultras-card">
+                    <div class="stamp">New Pack</div>
+                    <div class="pack-grid-5">
+                        <img src="https://dl.dropboxusercontent.com/scl/fi/zuuio8lzidiqnz072n8di/IMG-20260520-WA0001.jpg?rlkey=31luebbhra826zsllhj1qaln1&dl=1">
+                        <img src="https://dl.dropboxusercontent.com/scl/fi/eeitlmf0inayixs0d2p0p/IMG-20260520-WA0003.jpg?rlkey=8v591eljclzi09hlewund6mgf&dl=1">
+                        <img src="https://dl.dropboxusercontent.com/scl/fi/x396damp57r2tkmu668ny/IMG-20260520-WA0002.jpg?rlkey=otqvlaj2ohol50dk4nn4us6r7&dl=1">
+                        <img src="https://dl.dropboxusercontent.com/scl/fi/n5yx9qiy9pfswq5kprwf4/IMG-20260520-WA0004.jpg?rlkey=n3ia8dbp50ch6w0c0xtngw4p5&dl=1">
+                        <img src="https://dl.dropboxusercontent.com/scl/fi/86h5yu53ebkltk3o6zh8y/IMG-20260520-WA0005.jpg?rlkey=q53nr42h6p08gzv9wny3tl6xe&dl=1">
+                    </div>
+                    <h3>cup espranza</h3>
+                    <button class="buy-btn">اطلب عبر واتساب</button>
+                </div>
+
                 <div class="card ultras-card">
                     <div class="stamp">Exclusive</div>
                     <img src="https://dl.dropboxusercontent.com/scl/fi/q2npavpsrtdyvpe7tkxze/IMG-20260509-WA0001.jpg?rlkey=clvf9e93thk1urhadfp9p5vzn&dl=1" class="single-pack-img">
@@ -151,13 +172,13 @@
 
         const viewer = document.getElementById('image-viewer');
         const fullImg = document.getElementById('full-image');
-        const closeBtn = document.querySelector('#image-viewer .close');
 
-        document.querySelectorAll('.ultras-card img').forEach(img => {
-            img.addEventListener('click', () => {
+        // تحديث وظيفة التكبير لتشمل جميع الصور الديناميكية
+        document.addEventListener('click', (e) => {
+            if (e.target.tagName === 'IMG' && e.target.closest('.ultras-card')) {
                 viewer.style.display = 'flex';
-                fullImg.src = img.src;
-            });
+                fullImg.src = e.target.src;
+            }
         });
 
         viewer.addEventListener('click', () => {
@@ -188,4 +209,5 @@
         });
     </script>
 </body>
-</html>
+                            </html>
+                            
